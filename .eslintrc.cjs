@@ -19,5 +19,8 @@ module.exports = {
   },
   env: {
     node: true
+  },
+  rules: {
+    'vue/no-multi-word-component-names': 'off'
   }
 }
