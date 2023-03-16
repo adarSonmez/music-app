@@ -1,12 +1,25 @@
 <script>
 import AppHeader from './components/AppHeader.vue'
 import AppAuth from './components/AppAuth.vue'
+import useUserStore from './stores/user'
+import { mapWritableState } from 'pinia'
+import { auth } from '@/includes/firebase'
 
 export default {
   name: 'App',
   components: {
     AppHeader,
     AppAuth
+  },
+  computed: {
+    ...mapWritableState(useUserStore, ['userLoggedIn'])
+  },
+  // Lifecycle function is called when the component is created
+  created() {
+    // Check if user is logged in
+    if (auth.currentUser) {
+      this.userLoggedIn = true
+    }
   }
 }
 </script>

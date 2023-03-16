@@ -1,4 +1,7 @@
 <script>
+import useUserStore from '@/stores/user'
+import { mapActions } from 'pinia'
+
 export default {
   name: 'RegisterForm',
   data() {
@@ -23,16 +26,28 @@ export default {
     }
   },
   methods: {
-    register(values) {
+    ...mapActions(useUserStore, {
+      createUser: 'register'
+    }),
+
+    async register(values) {
       this.reg_on_submit = true
       this.reg_show_alert = true
       this.reg_alert_variant = 'bg-blue-500'
       this.reg_alert_msg = 'Please wait, registering...'
 
-      // request
+      try {
+        await this.createUser(values)
+      } catch (error) {
+        this.reg_alert_variant = 'bg-red-500'
+        this.reg_alert_msg = error.message
+        this.reg_on_submit = false
+        return
+      }
+
       this.reg_alert_variant = 'bg-green-500'
       this.reg_alert_msg = 'Registration successful!'
-      console.log(values)
+      window.location.reload()
     }
   }
 }
