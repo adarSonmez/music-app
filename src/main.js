@@ -3,10 +3,10 @@ import { createPinia } from 'pinia'
 import validationPlugin from './includes/validation.js'
 import { auth } from './includes/firebase.js'
 
+import '@/assets/main.css'
+
 import App from './App.vue'
 import router from './router'
-
-import './assets/main.css'
 
 let app
 
