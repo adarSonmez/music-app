@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import validationPlugin from './includes/validation.js'
 import { auth } from './includes/firebase.js'
+import Icon from '@/directives/icon.js'
 
 import '@/assets/main.css'
 
@@ -18,6 +19,7 @@ auth.onAuthStateChanged(() => {
     app.use(createPinia())
     app.use(router)
     app.use(validationPlugin)
+    app.directive('icon', Icon)
     app.mount('#app')
   }
 })
