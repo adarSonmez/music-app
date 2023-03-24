@@ -1,0 +1,26 @@
+{
+  "home": {
+    "listen": "Écoutez de la bonne musique!"
+  },
+  "header": {
+    "about": "À propos",
+    "logReg": "Connexion / Inscription",
+    "manage": "Gérer",
+    "logout": "Déconnexion"
+  },
+  "about": {
+    "text": "Rien ici"
+  },
+  "manage": {
+    "upload": "Télécharger",
+    "mySongs": "Mes chansons",
+    "dropbox": "Déposez vos fichiers ici"
+  },
+  "song": {
+    "commentCount": "Aucun commentaire | 1 commentaire | {count} commentaires"
+  },
+  "register": {
+    "accept": "J'accepte {0}",
+    "tos": "Conditions d'utilisation"
+  }
+}

@@ -20,11 +20,16 @@ export default {
         this.$router.push({ name: 'Home' })
       }
       */
+    },
+    changeLocale() {
+      this.$i18n.locale = this.$i18n.locale === 'en' ? 'fr' : 'en'
     }
   },
-
   computed: {
-    ...mapStores(useModalStore, useUserStore)
+    ...mapStores(useModalStore, useUserStore),
+    currentLocale() {
+      return this.$i18n.locale === 'en' ? 'English' : 'Français'
+    }
   }
 }
 </script>
@@ -45,21 +50,34 @@ export default {
         <ul class="flex flex-row mt-1">
           <!-- Navigation Links -->
           <li>
-            <router-link class="px-2 text-white" :to="{ name: 'About' }">About</router-link>
+            <router-link class="px-2 text-white" :to="{ name: 'About' }">
+              {{ $t('header.about') }}
+            </router-link>
           </li>
           <li v-if="!userStore.userLoggedIn">
-            <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal"
-              >Login / Register</a
-            >
+            <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal">
+              {{ $t('header.logReg') }}
+            </a>
           </li>
           <template v-else>
             <li>
-              <router-link class="px-2 text-white" :to="{ name: 'Manage' }">Manage</router-link>
+              <router-link class="px-2 text-white" :to="{ name: 'Manage' }">
+                {{ $t('header.manage') }}
+              </router-link>
             </li>
             <li>
-              <a class="px-2 text-white" href="#" @click.prevent="logout()">Logout</a>
+              <a class="px-2 text-white" href="#" @click.prevent="logout()">
+                {{ $t('header.logout') }}
+              </a>
             </li>
           </template>
+        </ul>
+        <ul class="ml-auto">
+          <li>
+            <a class="px-2 text-white" href="#" @click.prevent="changeLocale">
+              {{ currentLocale }}
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
