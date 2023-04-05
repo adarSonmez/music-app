@@ -80,23 +80,27 @@ export default {
     }
   },
 
-  async created() {
-    const songId = this.$route.params.songId
+  // for performance we use beforeRouteEnter instead of created
+  async beforeRouteEnter(to, from, next) {
+    // since component is not yet created, we can't use "this.$route" here instead we use "to"
+    const songId = to.params.songId
     const song = await songsCollection.doc(songId).get()
 
-    if (!song.exists) {
-      this.$router.push({ name: 'Home' })
-      return
-    }
+    next((vm) => {
+      if (!song.exists) {
+        vm.$router.push({ name: 'Home' })
+        return
+      }
 
-    const { sort } = this.$route.query
+      const { sort } = vm.$route.query
 
-    if (sort === 'latest' || sort === 'oldest') {
-      this.sort = this.$route.query.sort
-    }
+      if (sort === 'latest' || sort === 'oldest') {
+        vm.sort = vm.$route.query.sort
+      }
 
-    this.song = song.data()
-    this.getComments()
+      vm.song = song.data()
+      vm.getComments()
+    })
   },
   watch: {
     sort(newValue) {
