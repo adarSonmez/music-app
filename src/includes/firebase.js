@@ -14,9 +14,24 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-export const auth = firebase.auth()
-export const db = firebase.firestore()
-export const usersCollection = db.collection('users')
-export const songsCollection = db.collection('songs')
-export const commentsCollection = db.collection('comments')
-export const storage = firebase.storage()
+const auth = firebase.auth()
+const db = firebase.firestore()
+const storage = firebase.storage()
+
+db.enablePersistence().catch((err) => {
+  if (err.code === 'failed-precondition') {
+    console.log('Multiple tabs open, persistence can only be enabled in one tab at a a time.')
+  } else if (err.code === 'unimplemented') {
+    console.log(
+      'The current browser does not support all of the features required to enable persistence'
+    )
+  } else {
+    console.log(err)
+  }
+})
+
+const usersCollection = db.collection('users')
+const songsCollection = db.collection('songs')
+const commentsCollection = db.collection('comments')
+
+export { auth, db, usersCollection, songsCollection, commentsCollection, storage }

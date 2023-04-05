@@ -23,6 +23,18 @@ export default {
       files.forEach((file) => {
         if (file.type !== 'audio/mpeg') return
 
+        if (!navigator.onLine) {
+          this.uploads.push({
+            task: {},
+            name: file.name,
+            currentProgress: 100,
+            variant: 'bg-red-400',
+            icon: 'fas fa-times',
+            textClass: 'text-red-400'
+          })
+          return
+        }
+
         const storageRef = storage.ref() // music-app-8e851.appspot.com
         const songsRef = storageRef.child('songs/' + file.name) // music-app-8e851.appspot.com/songs/example_song.mp3
         const task = songsRef.put(file)
